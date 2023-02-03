@@ -15,6 +15,7 @@ Members:
 #include "Sorting_Algorithms/sort6.h"
 #include "generateData.h"
 #include "timer.h"
+#include "csvGenerator.h"
 
 //gcc -Wall -o main main.c && main
 int main() {
@@ -22,9 +23,9 @@ int main() {
 	srand(time(NULL));
 
 	int aData[ALGORITHM_RUNS][DATA_SET_SIZE];
-	double dCounter[ALGORITHM_RUNS] = {0};
-	struct timespec timeLogs[ALGORITHM_RUNS][2];
-	double sortingTime[ALGORITHM_RUNS];
+	double aCounters[ALGORITHM_RUNS] = {0};
+	struct timespec aTimeLogs[ALGORITHM_RUNS][2];
+	double aSortingTime[ALGORITHM_RUNS];
 	int nSortingType;
 
 	//Will be removed. For testing only
@@ -38,28 +39,28 @@ int main() {
 
 		
 		//ALGORITHM SORTING.
-		timeLogs[M][0] = getTime();	//LOG START TIME
+		aTimeLogs[M][0] = getTime();	//LOG START TIME
 
 
 		//CALL THE ALGORITHM
 		switch (nSortingType){
 			case BUBBLE_SORT:
-				bubbleSort(aData[M], DATA_SET_SIZE, &dCounter[M]);
+				bubbleSort(aData[M], DATA_SET_SIZE, &aCounters[M]);
 				break;
 			case SELECTION_SORT:
-				selectionSort(aData[M], DATA_SET_SIZE, &dCounter[M]);
+				selectionSort(aData[M], DATA_SET_SIZE, &aCounters[M]);
 					break;
 			case INSERTION_SORT:
-				insertionSort(aData[M], DATA_SET_SIZE, &dCounter[M]);
+				insertionSort(aData[M], DATA_SET_SIZE, &aCounters[M]);
 					break;
 			case MERGE_SORT:
-				mergeSort(aData[M], DATA_SET_SIZE, &dCounter[M]);
+				mergeSort(aData[M], DATA_SET_SIZE, &aCounters[M]);
 					break;
 			case SORTING_5:
-				sort5(aData[M], DATA_SET_SIZE, &dCounter[M]);
+				sort5(aData[M], DATA_SET_SIZE, &aCounters[M]);
 					break;
 			case SORTING_6:
-				sort6(aData[M], DATA_SET_SIZE, &dCounter[M]);
+				sort6(aData[M], DATA_SET_SIZE, &aCounters[M]);
 					break;
 			default:
 				printf("INVALID OPTION. TERMINATING...");
@@ -68,17 +69,22 @@ int main() {
 		
 
 
-		timeLogs[M][1] = getTime();	//LOG END TIME
-		sortingTime[M] = getElapsed(timeLogs[M][0], timeLogs[M][1]);
+		aTimeLogs[M][1] = getTime();	//LOG END TIME
+		aSortingTime[M] = getElapsed(aTimeLogs[M][0], aTimeLogs[M][1]);
 
 		//SHOW RESULTS
 		printData(aData[M], DATA_SET_SIZE);
-		printf("[TIME]: %f   [COUNTER]: %f\n", sortingTime[M], dCounter[M]);
+		printf("[TIME]: %f   [COUNTER]: %f\n", aSortingTime[M], aCounters[M]);
 		printf("-------------------------------------------");
 	}
 
 	//CALCULATE AVERAGE TIME
 	printf("\n\n==========================================\n");
-	printf("AVERAGE TIME FOR %d RUNS:          %f\n", M, calcAverage(sortingTime, ALGORITHM_RUNS));
-	printf("AVERAGE COUNTER VALUE FOR %d RUNS: %f\n", M, calcAverage(dCounter, ALGORITHM_RUNS));
+	double avgTime = calcAverage(aSortingTime, ALGORITHM_RUNS);
+	double avgCount = calcAverage(aCounters, ALGORITHM_RUNS);
+
+	printf("AVERAGE TIME FOR %d RUNS:          %f\n", M, avgTime);
+	printf("AVERAGE COUNTER VALUE FOR %d RUNS: %f\n", M, avgCount);
+
+	recordCSV(avgTime, avgCount);
 }

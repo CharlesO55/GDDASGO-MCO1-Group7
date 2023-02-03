@@ -34,7 +34,7 @@ void swap(int* p1, int* p2){
 	@param int A[] 			array to be sorted
 	@param int n			size of the array to be sorted
 */
-void printData(int A[], int n){
+const void printData(int A[], int n){
     int i;
     printf("ARRAY OF SIZE %d:\n", n);
     for (i=0; i < n; i++){
