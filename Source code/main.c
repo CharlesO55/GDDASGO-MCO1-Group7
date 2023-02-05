@@ -79,7 +79,7 @@ int main() {
 	}
 
 	//CALCULATE AVERAGE TIME
-	printf("\n\n==========================================\n");
+	printf("\n\n===========================================\n");
 	double avgTime = calcAverage(aSortingTime, ALGORITHM_RUNS);
 	double avgCount = calcAverage(aCounters, ALGORITHM_RUNS);
 

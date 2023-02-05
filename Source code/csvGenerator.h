@@ -9,7 +9,7 @@ const void recordCSV(double avgTime, double avgCount){
 
     FILE *fp = fopen("Results/record.csv", "w+");
 
-    fprintf(fp, "AVG TIME, AVG COUNT\n");
+    fprintf(fp, " , AVG TIME, AVG COUNT\n");
     for (i = 0; i < 6; i++){
         fprintf(fp, "%s, %f, %f\n", csvHeaders[i], avgTime, avgCount);
         //switch to this ver for final using arrays
