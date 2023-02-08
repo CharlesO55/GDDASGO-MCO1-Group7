@@ -55,6 +55,7 @@ void insertionSort(int A[], int n, double *dCounter) {
 			key = slot;				//Record the key to move
 			
 			for (pointer = slot - 1; pointer >= 0; pointer--){
+				*dCounter += 1;
 				if (A[pointer] > A[key]){		//Pointer scans to the left of key for a higher value
 					swap(&A[key], &A[pointer]);	//Swap to create ascending order
 					key--;						//Move the key as well to note it's new index

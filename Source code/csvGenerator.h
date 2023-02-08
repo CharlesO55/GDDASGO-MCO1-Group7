@@ -1,20 +1,31 @@
 #pragma once
 
 /*  
-    Generates a csv record of average time and counter
+    Resets the csv record file: record.csv
 */
-const void recordCSV(double avgTime, double avgCount){
-    char csvHeaders[6][20] = {"BUBBLE SORT", "SELECTION SORT", "INSERTION SORT", "MERGE SORT", "SORT 5", "SORT 6"};
-    int i;
+const void resetCSV(){
+    FILE *fp = fopen("Results/record.csv", "w");
+    fprintf(fp, "SORTING ALGORITHM, DATA SET SIZE, AVERAGE TIME, AVERAGE COUNT\n");
+    fclose(fp);
+}
 
-    FILE *fp = fopen("Results/record.csv", "w+");
 
-    fprintf(fp, " , AVG TIME, AVG COUNT\n");
-    for (i = 0; i < 6; i++){
-        fprintf(fp, "%s, %f, %f\n", csvHeaders[i], avgTime, avgCount);
-        //switch to this ver for final using arrays
-        //fprintf(fp, "%s, %f, %f\n", csvHeaders[i], avgTime[i], avgCount[i]);
+
+/*
+    Appends additional values into a new line in record.csv
+
+    @param char str_AlgoName        Name of the algorithm used
+    @param int n_Size               Data set size
+    @param double d_AverageTime     Average time
+    @param double d_AverageCount    Average count
+*/
+const void recordCSV(int n_Size, char str_AlgoName[20], double d_AverageTime, double d_AverageCount){
+    FILE *fp = fopen("Results/record.csv", "a");
+
+    if (fp == NULL){
+        printf("[ERROR]: CSV NOT FOUND\n");
+        return;
     }
-
+    fprintf(fp, "%d, %s, %f, %f\n", n_Size, str_AlgoName, d_AverageTime, d_AverageCount);
     fclose(fp);
 }

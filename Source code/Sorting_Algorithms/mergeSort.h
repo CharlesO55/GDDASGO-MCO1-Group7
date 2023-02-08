@@ -9,30 +9,49 @@ Link:
 /* 
 	You may declare additional functions here
 */
-void merge(int A[], int n, int middle, int rightSize){
-	int aLeft[middle+1], aRight[rightSize];
+void merge(int A[], int n, int middle, int n2){
+	
+	int n1 = middle+1;				//size of left array
+	int aLeft[n1], aRight[n2];		//temporary arrays to copy to
 
-	int i;
-	for (i = 0; i <= middle; i++){
-		aLeft[i] = A[i];		//Copy the left half into a temp arr
+	int indexL, indexR;
+	for (indexL = 0; indexL < middle; indexL++){
+		aLeft[indexL] = A[indexL];		//Copy the left half into a temp arr
 	}
-
-	int j;
-	for (j = 0; j < rightSize; j++){
-		aRight[j] = A[j + middle+1];		//Copy the right half into a temp arr
+/*
+	for (indexR = 0; indexR < rightSize; indexR++){
+		aRight[indexR] = A[indexR + middle+1];		//Copy the right half into a temp arr
+	}*/
+	
+	int index = 0;
+	indexL = 0;
+	indexR = 0;
+	while(indexL < n1 || indexR < n2){
+		if(aLeft[indexL] <= aRight[indexR]){
+			A[index] = aLeft[indexL];
+			indexL++;
+		}
+		else{
+			A[index] = aRight[indexR];
+			indexR++;
+		}
+		index++;
 	}
 	
+	/*
 	int k = 0;
-	while(i >= 0){
-		A[k] = aLeft[i-1];
+	int i = 0;
+	while(i < indexL){	//Take everything from left until everything was copied (reached indexL)
+		A[k] = aLeft[i];
 		k++;
-		i--;
-	}/*
-	while(j >= 0){
-		A[k] = aRight[j];
+		i++;
+	}
+	while(i < indexR){	//Take everythin from right until everything was copied (reached indexR)
+		A[k] = aRight[i];
 		k++;
-		j--;
+		i++;
 	}*/
+
 
 	printf("\nMERGED OUTPUT: "); printData(A, n);
 }

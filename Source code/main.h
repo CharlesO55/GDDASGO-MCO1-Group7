@@ -1,18 +1,24 @@
 #ifndef MAIN_HEADER
 #define MAIN_HEADER
 
-#define BUBBLE_SORT 1
-#define SELECTION_SORT 2
-#define INSERTION_SORT 3
-#define MERGE_SORT 4
-#define SORTING_5 5
-#define SORTING_6 6
+#define BUBBLE_SORT     0
+#define SELECTION_SORT  1
+#define INSERTION_SORT  2
+#define MERGE_SORT      3
+#define SORTING_5       4
+#define SORTING_6       5
 
+#define COLOR_RED   "\033[0;31m"
+#define COLOR_RESET "\033[0m"
+
+#define WIPE_CSV_DATA 0
 
 //EDITABLE
-#define DATA_SET_SIZE 6
+#define DATA_SET_SIZE 1024*100
 #define MIN_DATA_RANGE_VALUE 1
 #define MAX_DATA_RANGE_VALUE 20
+
+#define ALGORITHM_TYPES 6
 #define ALGORITHM_RUNS 10   //MIN IS 10
 
 
@@ -77,4 +83,17 @@ void chooseSortingType(int* pChoice){
         scanf(" %d", pChoice);
     }
 }
+
+
+/*
+    Copies contents of an array of size n
+*/
+void copyArray(int a_Source[], int a_Output[], int n){
+    int i;
+    for (i = 0; i < n; i++){
+        a_Output[i] = a_Source[i];
+    }
+}
+
+
 #endif

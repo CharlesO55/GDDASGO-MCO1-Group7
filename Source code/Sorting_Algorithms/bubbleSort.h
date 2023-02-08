@@ -45,9 +45,9 @@ void bubbleSort(int A[], int n, double *dCounter) {
 		int slot, pointer;
 		for (slot = 0; slot < n - 1; slot++){							//SLOT goes from left to rightmost - 1
 			for (pointer = n - 1; pointer > slot; pointer--){			//POINTER goes from rightmost towards SLOT+1
+				*dCounter += 1;
 				if(A[pointer] < A[slot])	//When the pointer value is lower than the slot value, swap
 					swap(&A[slot], &A[pointer]);
-
 				//printData(A, n);	//To see per calc results
 			}
 		}

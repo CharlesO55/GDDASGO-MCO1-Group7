@@ -25,6 +25,7 @@ int partition(int A[], int n, double* dCounter){
 
 	//MOVE 2 POINTERS ACROSS. i will always be behind j
 	for (j = 0; j < n-1; j++){	//j scans all the values from left to right excluding the pivot
+		*dCounter += 1;
 		if(A[j] < pivot){		//i marks the index of the last lower value inserted
 			i++;					//move the i pointer up
 			swap(&A[i], &A[j]);		//Swap values of i and j
@@ -32,6 +33,7 @@ int partition(int A[], int n, double* dCounter){
 	}
 
 	//PUT THE PIVOT TO ITS PLACE. AFTER THE LAST SMALLER VALUE
+	*dCounter += 1;
 	swap(&A[i+1], &A[n-1]);
 	return i+1;
 }

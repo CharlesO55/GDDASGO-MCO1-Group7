@@ -52,9 +52,11 @@ void selectionSort(int A[], int n, double *dCounter) {
 		for (slot = 0; slot < n - 1; slot++){		//Move slot from left to rightmost-1
 			smallest = slot;						//Reset the smallest pointer to match slot position
 			for (pointer = slot + 1; pointer <= n-1; pointer++){	//Move pointer from next to slot towards rightmost
+				*dCounter += 1;
 				if (A[pointer] < A[smallest])
 					smallest = pointer;	//Note the smallest's index
 			}
+			*dCounter += 1;
 			if (smallest != slot)
 				swap(&A[slot], &A[smallest]);
 			//Ignore if already smallest
