@@ -82,6 +82,10 @@ void chooseSortingType(int* pChoice){
 
 /*
     Copies contents of an array of size n
+
+    @param a_Source     Array to copy from
+    @param a_Output     Array to alter
+    @param n            size of array
 */
 void copyArray(int a_Source[], int a_Output[], int n){
     int i;
