@@ -39,6 +39,7 @@ void sort6(int A[], int n, double *dCounter) {
 		if(A[i] < A[i-1]){	//If element before is greater, swap the two. Move pointer back to check as well
 			swap(&A[i], &A[i-1]);
 			i--;
+			*dCounter += 1;
 		}
 		else{		//Move pointer forward if already sorted
 			i++;

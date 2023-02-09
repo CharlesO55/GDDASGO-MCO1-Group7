@@ -1,25 +1,20 @@
 #ifndef MAIN_HEADER
 #define MAIN_HEADER
 
-#define BUBBLE_SORT     0
-#define SELECTION_SORT  1
-#define INSERTION_SORT  2
-#define MERGE_SORT      3
-#define SORTING_5       4
-#define SORTING_6       5
-
 #define COLOR_RED   "\033[0;31m"
 #define COLOR_RESET "\033[0m"
 
 #define WIPE_CSV_DATA 0
 
-//EDITABLE
-#define DATA_SET_SIZE 1024*100
-#define MIN_DATA_RANGE_VALUE 1
-#define MAX_DATA_RANGE_VALUE 20
 
 #define ALGORITHM_TYPES 6
 #define ALGORITHM_RUNS 10   //MIN IS 10
+
+
+//SETTINGS
+enum settings_runToggle{DEBUG_MODE, MCO1_OUTPUT_MODE};
+enum settings_dataSet{DATA_SET_SIZE = 1024*10, MIN_DATA_RANGE_VALUE = 1, MAX_DATA_RANGE_VALUE = 99};
+enum sortingAlgorithms{BUBBLE_SORT = 0, SELECTION_SORT, INSERTION_SORT, MERGE_SORT, QUICK_SORT, STUPID_SORT};
 
 
 /*
@@ -72,14 +67,14 @@ double calcAverage(double input[], int n){
 	@param int* pChoice 			Choice to update
 */
 void chooseSortingType(int* pChoice){
-    while(*pChoice < 1 || *pChoice > 6){
+    while(*pChoice < 0 || *pChoice > 5){
         printf("CHOOSE SORTING TYPES: \n");
-        printf("1. BUBBLE SORT\n");
-        printf("2. SELECTION SORT\n");
-        printf("3. INSERTION SORT\n");
-        printf("4. MERGE SORT\n");
-        printf("5. 5 SORT\n");
-        printf("6. 6 SORT\n");
+        printf("0. BUBBLE SORT\n");
+        printf("1. SELECTION SORT\n");
+        printf("2. INSERTION SORT\n");
+        printf("3. MERGE SORT\n");
+        printf("4. 5 SORT\n");
+        printf("5. 6 SORT\n");
         scanf(" %d", pChoice);
     }
 }

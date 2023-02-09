@@ -56,9 +56,10 @@ void selectionSort(int A[], int n, double *dCounter) {
 				if (A[pointer] < A[smallest])
 					smallest = pointer;	//Note the smallest's index
 			}
-			*dCounter += 1;
-			if (smallest != slot)
+			if (smallest != slot){
 				swap(&A[slot], &A[smallest]);
+				*dCounter += 1;
+			}
 			//Ignore if already smallest
 		}
 	}

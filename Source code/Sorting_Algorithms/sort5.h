@@ -29,6 +29,7 @@ int partition(int A[], int n, double* dCounter){
 		if(A[j] < pivot){		//i marks the index of the last lower value inserted
 			i++;					//move the i pointer up
 			swap(&A[i], &A[j]);		//Swap values of i and j
+			*dCounter += 1;
 		}
 	}
 

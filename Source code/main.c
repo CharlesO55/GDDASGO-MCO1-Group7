@@ -1,7 +1,7 @@
 /****************************************************
-Group: 		
-Section:	
-Members:	
+Group: 		GROUP 7
+Section:	S11
+Members:	JACINTO, ONG
 ****************************************************/
 
 #include <stdio.h>
@@ -15,86 +15,78 @@ Members:
 #include "Sorting_Algorithms/sort6.h"
 #include "generateData.h"
 #include "timer.h"
-#include "csvGenerator.h"
+#include "csvGenerator.h"		//CUSTOM HEADER
 
 //gcc -Wall -o main main.c && main
 int main() {
+	//VARIABLES
 	char a_AlgoNames[ALGORITHM_TYPES][20] = {"BUBBLE SORT", "SELECTION SORT", "INSERTION SORT", "MERGE SORT", "QUICK SORT", "STUPID GNOME SORT"};
 	struct timespec s_StartTime;
-
 	//Could just increment time/counter then average it, but store in case needed
 	double a_Counters[ALGORITHM_RUNS], a_SortingTime[ALGORITHM_RUNS], d_AverageCount, d_AverageTime;
-
 	int a_MainData[DATA_SET_SIZE], a_CopyData[DATA_SET_SIZE];
 	
+
+	enum settings_runToggle run_Mode = MCO1_OUTPUT_MODE;//DEBUG_MODE;
 	//STARTUP
 	srand(time(NULL));
 	if (WIPE_CSV_DATA)
 		resetCSV();
-
-	//Debugger
-	{/*
-	chooseSortingType(&nSortingType);
-	int nSortingType;
-	int aData[ALGORITHM_RUNS][DATA_SET_SIZE];
-
-	int M;
-	for (M = 0; M < ALGORITHM_RUNS; M++){	//REPEAT FOR NUMBER OF ALGORITHM RUNS
-		printf("\nRUN #%d STARTING DATA:\n", M);
-		generateData(aData[M], DATA_SET_SIZE);
-		printData(aData[M], DATA_SET_SIZE);
-
-		
-		//ALGORITHM SORTING.
-		a_TimeLogs[M][0] = getTime();	//LOG START TIME
-
-
-		//CALL THE ALGORITHM
-		switch (nSortingType){
-			case BUBBLE_SORT:
-				bubbleSort(aData[M], DATA_SET_SIZE, &aCounters[M]);
-				break;
-			case SELECTION_SORT:
-				selectionSort(aData[M], DATA_SET_SIZE, &aCounters[M]);
-					break;
-			case INSERTION_SORT:
-				insertionSort(aData[M], DATA_SET_SIZE, &aCounters[M]);
-					break;
-			case MERGE_SORT:
-				mergeSort(aData[M], DATA_SET_SIZE, &aCounters[M]);
-					break;
-			case SORTING_5:
-				sort5(aData[M], DATA_SET_SIZE, &aCounters[M]);
-					break;
-			case SORTING_6:
-				sort6(aData[M], DATA_SET_SIZE, &aCounters[M]);
-					break;
-			default:
-				printf("INVALID OPTION. TERMINATING...");
-				return 999999999;
-		}
-		
-
-
-		a_TimeLogs[M][1] = getTime();	//LOG END TIME
-		a_SortingTime[M] = getElapsed(a_TimeLogs[M][0], a_TimeLogs[M][1]);
-
-		//SHOW RESULTS
-		printData(aData[M], DATA_SET_SIZE);
-		printf("[TIME]: %f   [COUNTER]: %f\n", a_SortingTime[M], aCounters[M]);
-		printf("-------------------------------------------");
-	}
-
-	//CALCULATE AVERAGE TIME
-	printf("\n\n===========================================\n");
-	double avgTime = calcAverage(a_SortingTime, ALGORITHM_RUNS);
-	double avgCount = calcAverage(aCounters, ALGORITHM_RUNS);
-
-	printf("AVERAGE TIME FOR %d RUNS:          %f\n", M, avgTime);
-	printf("AVERAGE COUNTER VALUE FOR %d RUNS: %f\n", M, avgCount);
-	*/}
 	
-	//Actual MCO 1 output
+	//ALGO DEBUGGER. DOESN'T STORE NOR CALC AVERAGE TIME DATA
+	if(run_Mode == DEBUG_MODE)
+	{
+		int nSortingType;
+		
+		chooseSortingType(&nSortingType);
+		int aData[ALGORITHM_RUNS][DATA_SET_SIZE];
+
+		int M;
+		for (M = 0; M < ALGORITHM_RUNS; M++){	//REPEAT FOR NUMBER OF ALGORITHM RUNS
+			printf("\nRUN #%d STARTING DATA:\n", M);
+			generateData(aData[M], DATA_SET_SIZE);
+			printData(aData[M], DATA_SET_SIZE);
+
+			
+			//ALGORITHM SORTING.
+			s_StartTime = getTime();	//LOG START TIME
+			a_Counters[M] = 0;
+
+			//CALL THE ALGORITHM
+			switch (nSortingType){
+				case BUBBLE_SORT:
+					bubbleSort(aData[M], DATA_SET_SIZE, &a_Counters[M]);
+					break;
+				case SELECTION_SORT:
+					selectionSort(aData[M], DATA_SET_SIZE, &a_Counters[M]);
+						break;
+				case INSERTION_SORT:
+					insertionSort(aData[M], DATA_SET_SIZE, &a_Counters[M]);
+						break;
+				case MERGE_SORT:
+					mergeSort(aData[M], DATA_SET_SIZE, &a_Counters[M]);
+						break;
+				case QUICK_SORT:
+					sort5(aData[M], DATA_SET_SIZE, &a_Counters[M]);
+						break;
+				case STUPID_SORT:
+					sort6(aData[M], DATA_SET_SIZE, &a_Counters[M]);
+						break;
+				default:
+					printf("INVALID OPTION. TERMINATING...");
+					return 999999999;
+			}
+			
+			//SHOW RESULTS
+			printData(aData[M], DATA_SET_SIZE);
+			printf("[TIME]: %f   [COUNTER]: %f\n", getElapsed(s_StartTime, getTime()), a_Counters[M]);
+			printf("-------------------------------------------");
+		}
+	}
+	
+
+	//ACTUAL MCO1 OUTPUT CSV PRINTER
+	if(run_Mode == MCO1_OUTPUT_MODE)
 	{
 		int n_AlgoType, n_RunCounter;
 
@@ -113,7 +105,6 @@ int main() {
 				s_StartTime = getTime();
 				a_Counters[n_RunCounter] = 0;
 
-				//printf("SORTING %d\n", n_RunCounter);
 				//CALL THE SORT ALGORITHMS
 				switch(n_AlgoType){
 					case BUBBLE_SORT:
@@ -126,12 +117,12 @@ int main() {
 						insertionSort(a_CopyData, DATA_SET_SIZE, &a_Counters[n_RunCounter]);
 						break;
 					case MERGE_SORT:
-						//mergeSort(a_CopyData, DATA_SET_SIZE, &a_Counters[n_RunCounter]);
+						mergeSort(a_CopyData, DATA_SET_SIZE, &a_Counters[n_RunCounter]);
 						break;
-					case SORTING_5:
+					case QUICK_SORT:
 						sort5(a_CopyData, DATA_SET_SIZE, &a_Counters[n_RunCounter]);
 						break;
-					case SORTING_6:
+					case STUPID_SORT:
 						sort6(a_CopyData, DATA_SET_SIZE, &a_Counters[n_RunCounter]);
 						break;
 					default:
